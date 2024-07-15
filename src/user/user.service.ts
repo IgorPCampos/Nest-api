@@ -7,9 +7,10 @@ import { UpdatePutUserDTO } from "./dto/update-put-user.dto";
 @Injectable()
 export class UserService {
     constructor(private readonly prisma: PrimsaService) {}
+
     async create(data: CreateUserDTO) {
         return this.prisma.user.create({
-            data,
+            data
         });
     }
 
@@ -22,8 +23,8 @@ export class UserService {
 
         return this.prisma.user.findUnique({
             where: {
-                id,
-            },
+                id
+            }
         });
     }
 
@@ -33,8 +34,8 @@ export class UserService {
         return this.prisma.user.update({
             data,
             where: {
-                id,
-            },
+                id
+            }
         });
     }
 
@@ -44,8 +45,8 @@ export class UserService {
         return this.prisma.user.update({
             data,
             where: {
-                id,
-            },
+                id
+            }
         });
     }
 
@@ -54,8 +55,8 @@ export class UserService {
 
         return this.prisma.user.delete({
             where: {
-                id,
-            },
+                id
+            }
         });
     }
 
@@ -63,8 +64,8 @@ export class UserService {
         if (
             !(await this.prisma.user.count({
                 where: {
-                    id,
-                },
+                    id
+                }
             }))
         ) {
             throw new NotFoundException(`O usuário ${id} não existe`);

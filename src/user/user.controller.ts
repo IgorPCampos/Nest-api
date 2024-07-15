@@ -1,20 +1,17 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    Patch,
-    Post,
-    Put,
-    UseInterceptors,
-} from "@nestjs/common";
+import { Body, Controller, Delete, Get, Patch, Post, Put, UseGuards, UseInterceptors } from "@nestjs/common";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { UpdatePutUserDTO } from "./dto/update-put-user.dto";
 import { UpdatePatchUserDTO } from "./dto/update-patch-user.dto";
 import { UserService } from "./user.service";
 import { LogInterceptor } from "src/interceptors/log.interceptor";
 import { ParamId } from "src/decorators/param-id.decorator";
+import { Roles } from "src/decorators/roles.decorator";
+import { Role } from "src/enums/role.enum";
+import { RoleGuard } from "src/guards/role.guard";
+import { AuthGuard } from "src/guards/auth.guard";
 
+@UseGuards(AuthGuard, RoleGuard)
+@Roles(Role.Admin)
 @UseInterceptors(LogInterceptor) //Coloca o interceptor em todas as rotas
 @Controller("users")
 export class UserController {
@@ -37,10 +34,7 @@ export class UserController {
     }
 
     @Patch(":id")
-    async updatePartial(
-        @Body() data: UpdatePatchUserDTO,
-        @ParamId() id: number,
-    ) {
+    async updatePartial(@Body() data: UpdatePatchUserDTO, @ParamId() id: number) {
         return this.userService.updatePartial(id, data);
     }
 

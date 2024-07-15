@@ -12,6 +12,6 @@ export class AppController {
 
     @Post()
     setHello(): string {
-        return 'POST: Hello word';
+        return "POST: Hello word";
     }
 }
