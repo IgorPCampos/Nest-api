@@ -9,7 +9,7 @@ export class LogInterceptor implements NestInterceptor {
                 const request = context.switchToHttp().getRequest();
                 console.log(`URL:  ${request.method + request.url}`);
                 console.log(`Execução levou ${Date.now() - dt} milisegundos`);
-            }),
+            })
         );
     }
 }
